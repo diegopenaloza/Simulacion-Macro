@@ -7,8 +7,13 @@ import plotly.graph_objects as go
 # # Render the h1 block, contained in a frame of size 200x200.
 # components.html("<html><body><h1>Hello, World</h1></body></html>")
 
-te="# Simulación incremento de la oferta monetaria  $$m$$ en el mercado agricola "
+te="# Simulación incremento de la oferta monetaria ( $$m$$ ) en el mercado agricola "
 te
+st.markdown("""En el siguiente gráfico se muestra una simulación de como afecta el cambio en la oferta monetaria
+en el equilibrio de largo plazo de los precios de las materias primas.
+
+""")
+
 
 s=" m "
 v=st.slider(s,2,10,5)
@@ -131,7 +136,10 @@ fig = go.Figure()
 
 fig.add_trace(go.Scatter(x=pm, y=pm,
                     mode='lines',
-                    name='lines'))
+                    name='$e$'
+                    ,
+                     line = dict(color='black', width=1, dash='dot')
+                     ))
 
 
 fig.add_trace(go.Scatter(x=[pm_0,pm_0], y=[0,pm_0],
@@ -201,7 +209,7 @@ else:
     fig.add_trace(go.Scatter(x=pm, y=pc_s,
                         mode='lines',
                         name='Inicial',
-                        line = dict(color='green', width=1, dash='dot')))
+                        ))
 
 
 
@@ -230,8 +238,12 @@ fig.update_layout(
         margin=dict(
         l=0
     ),
-    template="seaborn"
+        xaxis_title="Precio de Productos Manufacturados",
+    yaxis_title="Precio de Productos Agricolas",
+    template="plotly_white"
 )
+
+# plotly_white
 
 fig.update_yaxes(nticks=20)
 fig.update_xaxes(nticks=20)
@@ -272,13 +284,31 @@ for i, j in zip(pc_a_g,pm_g):
     #             )
                 
        
+dfg="$Pm_0$"
 
 
-
-fig.add_annotation(x=pm_0, y=pm_0-0.4,
+fig.add_annotation(x=pm_0, y=pm_0,
             text="🔴",
             showarrow=False,
-            yshift=9.5)
+            )
+
+if pc_a[-1]>2.1900115930:
+
+    fig.add_annotation(x=10.3, y=pc_a[-1],
+                text="(2.1)",
+                showarrow=False,
+                )
+else:
+    fig.add_annotation(x=10.3, y=2.0900115930,
+                text="(2)",
+                showarrow=False,
+                )
+
+fig.add_annotation(x=10.3, y=2.0900115930,
+                text="(2)",
+                showarrow=False,
+                )
+
 fig.add_annotation(x=3.949999999, y=-0.7,
                 text=" Pm_0 ",
                 showarrow=False,
@@ -294,9 +324,41 @@ else:
                 showarrow=False,
                 yshift=10)
 
+
+if pm_0>4 or pm_0<3.8 :
+
+    fig.add_annotation(x=-0.5, y=pm_0,
+                    text=" Pc_1 ",
+                    showarrow=False,
+                    )
+
+fig.add_annotation(x=-0.5, y=3.9499999999999993,
+                text=" Pc_0 ",
+                showarrow=False,
+                )
+
+if pm_0>4 or pm_0<3.8 :
+
+    fig.add_annotation(x=-0.5, y=pc2,
+                text=" P'c ",
+                showarrow=False,
+                )
+
+
 fig.add_annotation(x=3.9499999999999993, y=pc2,
             text="🔵",
             showarrow=False,
             )
 
-st.plotly_chart(fig)
+fig.add_annotation(x=3.9499999999999993, y=3.9499999999999993,
+            text="🟢",
+            showarrow=False,
+            )
+
+
+st.plotly_chart(fig, filename='latex',include_mathjax='cdn')
+
+
+
+st.markdown("""Figura 5a. Dinámica de los precios de las materias primas de la expansión monetaria
+en una economía abierta""")
