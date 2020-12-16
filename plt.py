@@ -278,7 +278,7 @@ for i, j in zip(pc_a_g,pm_g):
 fig.add_annotation(x=pm_0, y=pm_0-0.4,
             text="🔴",
             showarrow=False,
-            yshift=8)
+            yshift=9.5)
 fig.add_annotation(x=3.949999999, y=-0.7,
                 text=" Pm_0 ",
                 showarrow=False,
