@@ -7,19 +7,66 @@ import plotly.graph_objects as go
 # # Render the h1 block, contained in a frame of size 200x200.
 # components.html("<html><body><h1>Hello, World</h1></body></html>")
 
-te="# Simulación incremento de la oferta monetaria ( $$m$$ ) en el mercado agricola "
+tee="# Dinámica de los precios de las materias primas de la expansión monetaria en una economía abierta"
+tee
+te="### (Simulación incremento de la oferta monetaria ( $$m$$ ) en el largo plazo ) "
+
 te
-st.markdown("""En el siguiente gráfico se muestra una simulación de como afecta el cambio en la oferta monetaria
-en el equilibrio de largo plazo de los precios de las materias primas.
+st.markdown(""" **Autores**: Diego Peñaloza , Wilson Chafla , Kevin Narvaez """)
+st.markdown("""** Fecha** :  19 de diciembre de 2020""")
+st.markdown("""** Asignatura ** :  Macroeconomía III""")
+
+st.markdown("""
+
+Partiendo del diagrama de fase , hemos plasmado unicamente la senda de solución en el largo plazo
+,ya que esta nos permite observar el sobreajuste de los precios , en primera instancia se partira de 
+un beta igual a 100, conlos parametros propùestos , una oferta monetaria de 5 , que podra se modificada 
+en la simulación.
 
 """)
 
 
-s=" m "
+st.markdown("""
+
+El equilibrio inicial está en Q_0 en la línea (2); los precios 
+iniciales de manufactura y agricultura son Pm_0 y P_c_0, respectivamente. 
+Para simplificar nuestro análisis gráfico, asumimos inicialmente Pm_0 = P_c_0 y,
+ por lo tanto, Q_0 está ubicado en una línea de 45 ° que pasa por el origen.
+
+
+""")
+
+
+
+st.markdown("""
+
+Tras un aumento permanente no anticipado de la oferta monetaria, la línea 
+(1) se desplaza hacia la derecha a (2).Esto se puede llevar acabo moviendo el primer slider 
+llamado m , que parte de una oferta monetaria de 5 (en millones)unidades monetarias, 
+hacia la derecha  .
+  Dado que la neutralidad monetaria  es válida a largo plazo, el punto $$Q^*$$, donde la línea (2)
+  interseca la línea de 45 °,
+ es el nuevo punto de equilibrio. Debido a que los precios de los productos manufacturados 
+ se ajustan con un desfase temporal, los precios de los productos agrícolas en
+  consecuencia deben subir inmediatamente de pc_0  a p'c , y la economía saltará 
+  verticalmente de Q_0 a Q'  en el instante de expansión monetaria. 
+  A partir de entonces, los precios agrícolas seguirán cayendo y los precios de 
+  las manufacturas seguirán subiendo a medida que la economía se mueva a 
+lo largo de la rama estable (2) hacia su nuevo equilibrio estacionario Q *.
+
+""")
+
+
+
+gyu="Slider $m$"
+gyu
+s=" "
 v=st.slider(s,2,10,5)
 
 m=v
-ss=" Sustituibilidad "
+ss1="Slider $\\beta$"
+ss=" "
+ss1
 vv=st.slider(ss,1,100,100)
 
 
@@ -225,6 +272,7 @@ fig.update_yaxes(
 )
 
 fig.update_layout(
+    title="Precios P.Agricolad vs Precios P.Manufacturados",
     legend=dict(
     orientation="h",
     yanchor="bottom",
@@ -240,7 +288,8 @@ fig.update_layout(
     ),
         xaxis_title="Precio de Productos Manufacturados",
     yaxis_title="Precio de Productos Agricolas",
-    template="plotly_white"
+    template="plotly_white",
+    showlegend=False,
 )
 
 # plotly_white
@@ -290,6 +339,25 @@ dfg="$Pm_0$"
 fig.add_annotation(x=pm_0, y=pm_0,
             text="🔴",
             showarrow=False,
+            )
+
+fig.add_annotation(x=pm_0, y=pm_0+0.8,
+            text="Q*",
+            showarrow=False,
+                    font=dict(
+            family="Courier New,bold",
+            size=20,
+            color="black"
+            ),
+                    align="center",
+
+        ax=20,
+        ay=-30,
+        bordercolor="#c7c7c7",
+        # borderwidth=6,
+        borderpad=4,
+        bgcolor="#ff7f0e",
+        opacity=0.8
             )
 
 if pc_a[-1]>2.1900115930:
@@ -350,9 +418,49 @@ fig.add_annotation(x=3.9499999999999993, y=pc2,
             showarrow=False,
             )
 
+fig.add_annotation(x=3.9499999999999993, y=pc2+0.8,
+            text="Q'",
+            showarrow=False,
+                    font=dict(
+            family="Courier New,bold",
+            size=20,
+            color="black"
+            ),
+                    align="center",
+
+        ax=20,
+        ay=-30,
+        bordercolor="#c7c7c7",
+        # borderwidth=6,
+        borderpad=4,
+        bgcolor="#ff7f0e",
+        opacity=0.8
+            )
+
+
+
 fig.add_annotation(x=3.9499999999999993, y=3.9499999999999993,
             text="🟢",
             showarrow=False,
+            )
+
+fig.add_annotation(x=3.9499999999999993, y=4.7499999999999993,
+            text="Q_0",
+            showarrow=False,
+                    font=dict(
+            family="Courier New,bold",
+            size=20,
+            color="black"
+            ),
+                    align="center",
+
+        ax=20,
+        ay=-30,
+        bordercolor="#c7c7c7",
+        # borderwidth=6,
+        borderpad=4,
+        bgcolor="#ff7f0e",
+        opacity=0.8
             )
 
 
@@ -360,5 +468,38 @@ st.plotly_chart(fig, filename='latex',include_mathjax='cdn')
 
 
 
-st.markdown("""Figura 5a. Dinámica de los precios de las materias primas de la expansión monetaria
-en una economía abierta""")
+
+
+st.markdown("""
+
+Como se analizo en el trabajo , tambien se puede presentar otra situación  en la que está presente una 
+subestimación de los precios agrícolas.
+ De la ecuación (10) se desprende claramente que la senda de solución puede tener pendiente ascendente.
+ En nuestra simulación esto se puede ver reflejado en su totalidad cuando el $$\\beta$$ disminuya su valor a 1 , 
+ esto es existe menor sustituibilidad en tre bonos y productos agricolas,
+ Esto se puede lograr al mover el slider  .
+
+ En respuesta a un aumento en la oferta monetaria, los precios agrícolas, en el impacto, subirán de pc_0 a p'c
+  y luego continuarán aumentar hasta que se alcance su valor a largo plazo, pc_1.
+   Esto se puede lograr de igual manera que en la ocasion anterior 
+   moviendo el slider m hacia la derecha. 
+""")
+import base64
+
+# st.markdown("![Alt Text](vid.gif)")
+
+# file_ = open("vid.gif", "rb")
+# contents = file_.read()
+# data_url = base64.b64encode(contents).decode("utf-8")
+# file_.close()
+
+st.markdown("**Referencia de Funcionamiento**") 
+st.image("vid.gif",output_format="GIF")
+
+st.markdown("**Codigo que se uso para esta simulación :**") 
+
+import webbrowser
+url = 'https://github.com/Dipg/Simulacion-Macro/blob/main/plt.py'
+
+if st.button('Codigo '):
+    webbrowser.open_new_tab(url)
