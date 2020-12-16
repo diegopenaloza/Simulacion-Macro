@@ -136,27 +136,50 @@ fig.add_trace(go.Scatter(x=pm, y=pm,
 
 fig.add_trace(go.Scatter(x=[pm_0,pm_0], y=[0,pm_0],
                     mode='lines',
-                    name='recta'))
+                    name='recta6',
+                    line = dict(color='blue', width=1, dash='dot')
+                    ))
 
 
 fig.add_trace(go.Scatter(x=[3.9499999999999993,3.9499999999999993], y=[0,pc2],
                     mode='lines',
-                    name='recta22'))
+                    name='recta22',
+                    
+                     line = dict(color='green', width=1, dash='dot')
+                    ))
 
 
 
 fig.add_trace(go.Scatter(x=[pm_0,pm_0], y=[0,pm_0],
                     mode='lines',
-                    name='recta'))
+                    name='recta'
+                    ,
+                    line = dict(color='red', width=1, dash='dot')
+                    ))
 
 
 
 fig.add_trace(go.Scatter(x=[0,pm_0], y=[pm_0,pm_0],
                     mode='lines',
-                    name='recta'))
+                    name='recta4',
+                    
+                    line = dict(color='red', width=1, dash='dot')
+                    ))
+
+fig.add_trace(go.Scatter(x=[0,3.9499999999999993], y=[3.9499999999999993,3.9499999999999993],
+                    mode='lines',
+                    name='recta4',
+                    
+                    line = dict(color='black', width=1, dash='dot')
+                    ))
 
 
-
+fig.add_trace(go.Scatter(x=[0,3.9499999999999993], y=[pc2,pc2],
+                    mode='lines',
+                    name='recta78',
+                    
+                    line = dict(color='green', width=1, dash='dot')
+                    ))
 
 pc_a=(tilde_p_c)+ cr*(pm-tilde_p_m)
 fig.add_trace(go.Scatter(x=pm, y=pc_a,
@@ -169,13 +192,18 @@ if beta>1:
     pc_s=(3.9499999999999993)-0.3074361003257089*(pm-3.9499999999999975)
     fig.add_trace(go.Scatter(x=pm, y=pc_s,
                         mode='lines',
-                        name='45º  '))
+                        name='45º  ',
+                        
+                        ))
 
 else:
     pc_s=(3.9499999999999993)+0.42212281415209435*(pm-3.9499999999999975)
     fig.add_trace(go.Scatter(x=pm, y=pc_s,
                         mode='lines',
-                        name='Inicial'))
+                        name='Inicial',
+                        line = dict(color='green', width=1, dash='dot')))
+
+
 
 
 fig.update_xaxes(
@@ -202,10 +230,73 @@ fig.update_layout(
         margin=dict(
         l=0
     ),
+    template="seaborn"
 )
+
+fig.update_yaxes(nticks=20)
+fig.update_xaxes(nticks=20)
+
+fig.update_xaxes(range=[-2, 12])
+fig.update_yaxes(range=[-1, 13])
+# fig.update_xaxes(showline=True, linewidth=2, linecolor='black')
+# fig.update_yaxes(showline=True, linewidth=2, linecolor='black')
+
+fig.update_xaxes(zeroline=True, zerolinewidth=2, zerolinecolor='black')
+fig.update_yaxes(zeroline=True, zerolinewidth=2, zerolinecolor='black')
+
+
+pm_g=np.arange(1,10,0.5)
+pc_a_g=(tilde_p_c)+ cr*(pm_g-tilde_p_m)
+
+for i, j in zip(pc_a_g,pm_g):
+    if j<pm_0 and j>3.949999999999:
+        fig.add_annotation(x=j, y=i,
+                text="➤",
+                showarrow=False,
+                # yshift=5,
+                font=dict(size=16,
+                ),
+                textangle=5
+                      
+        
+                )
+
+    # else:
+    #     fig.add_annotation(x=j, y=i,
+    #         text="➤",
+    #             showarrow=False,
+    #             # yshift=5,
+    #             font=dict(size=16,
+    #             ),
+    #             textangle=200
+    #             )
+                
+       
+
+
+
 fig.add_annotation(x=pm_0, y=pm_0-0.4,
             text="🔴",
             showarrow=False,
             yshift=10)
+fig.add_annotation(x=3.949999999, y=-0.7,
+                text=" Pm_0 ",
+                showarrow=False,
+                yshift=10)
+if pm_0<4 and pm_0>3:
+    fig.add_annotation(x=pm_0, y=-0.7,
+                text=" Pm_0 ",
+                showarrow=False,
+                yshift=10)
+else:
+    fig.add_annotation(x=pm_0, y=-0.7,
+                text=" Pm_1 ",
+                showarrow=False,
+                yshift=10)
+
+fig.add_annotation(x=3.9499999999999993, y=pc2,
+            text="🔵",
+            showarrow=False,
+            )
 
 st.plotly_chart(fig)
